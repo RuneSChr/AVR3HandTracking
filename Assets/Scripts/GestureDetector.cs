@@ -20,6 +20,8 @@ public class GestureDetector : MonoBehaviour
     public List<Gesture> savedGestures;
     public float threshold = 0.1f;
 
+    public CurrentWeapon currWeap;
+
     public bool debugMode;
 
     private Gesture previousGes;
@@ -37,11 +39,16 @@ public class GestureDetector : MonoBehaviour
 
         Gesture currentGes = Recognize();
         bool hasRecognized = !currentGes.Equals(new Gesture());
-        if (hasRecognized && !currentGes.Equals(previousGes))
+        if (hasRecognized && (!currentGes.Equals(previousGes) || savedGestures.Count < 2))
         {
             Debug.Log("Gesture recognized: " + currentGes.name);
             previousGes = currentGes;
             currentGes.onRecognized.Invoke();
+        }
+        else if (!hasRecognized)
+        {
+            if (currWeap != null)
+                currWeap.EndShoot();
         }
     }
 

@@ -12,9 +12,9 @@ public class ShootLaser : iWeapon
     private GameObject ball;
     [SerializeField]
     private float laserSpeed, laserLimit;
-    [SerializeField]
-    private bool isShooting = false;
     private bool shouldReset = false;
+    [SerializeField]
+    private Transform handParent;
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,7 +25,10 @@ public class ShootLaser : iWeapon
     }
     public override void BeginShoot()
     {
+        if (isShooting)
+            return;
         isShooting = true;
+        line.SetStartAndEndPoints(Vector3.zero, Vector3.zero);
     }
     public override void EndShoot()
     {
@@ -37,6 +40,9 @@ public class ShootLaser : iWeapon
     {
         if (isShooting)
         {
+            line.transform.SetParent(handParent);
+            line.transform.localRotation = Quaternion.Euler(90, 0, 0);
+            line.transform.position = handParent.transform.position;
             if (line.m_endPos.z == 0)
             {
                 line.gameObject.SetActive(true);
@@ -65,6 +71,7 @@ public class ShootLaser : iWeapon
             {
                 if (line.m_endPos.z > 0)
                 {
+                    line.transform.SetParent(null);
                     ball.SetActive(false);
                     line.SetStartAndEndPoints(new Vector3(line.m_startPos.x, line.m_startPos.y, line.m_startPos.z + laserSpeed), new Vector3(line.m_endPos.x, line.m_endPos.y, line.m_endPos.z + laserSpeed));
                 }

@@ -8,8 +8,13 @@ public class UnityWeapons : iWeapon
 
     [SerializeField]
     private bool testBegin, testEnd;
+
+
     public override void BeginShoot()
     {
+        if (isShooting)
+            return;
+        isShooting = true;
         foreach(ParticleSystem ps in partSystems)
         {
             ps.Play();
@@ -18,6 +23,7 @@ public class UnityWeapons : iWeapon
 
     public override void EndShoot()
     {
+        isShooting = false;
         foreach (ParticleSystem ps in partSystems)
         {
             ps.Stop(false, ParticleSystemStopBehavior.StopEmitting);
