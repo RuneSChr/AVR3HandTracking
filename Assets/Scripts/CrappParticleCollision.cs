@@ -9,6 +9,7 @@ public class CrappParticleCollision : MonoBehaviour
         AnimateFallDown afd = other.GetComponent<AnimateFallDown>();
         if (afd)
         {
+            Debug.Log("Col");
             afd.FallDown();
         }
     }

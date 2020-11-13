@@ -9,8 +9,9 @@ public class crappCapsuleCollision : MonoBehaviour
     {
         afd = GetComponent<AnimateFallDown>();
     }
-    private void OnTriggerEnter(Collider other)
+    public void OnCollisionEnter(Collision other)
     {
+        Debug.Log("ColEnter");
         afd.FallDown();
     }
 }
