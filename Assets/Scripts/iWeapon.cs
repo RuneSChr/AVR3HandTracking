@@ -5,6 +5,18 @@ using UnityEngine;
 public abstract class iWeapon : MonoBehaviour
 {
     public bool isShooting;
-    public abstract void BeginShoot();
-    public abstract void EndShoot();
+    [SerializeField]
+    private AudioSource audioS;
+    public virtual void BeginShoot()
+    {
+        if (isShooting)
+            return;
+        isShooting = true;
+        audioS.Play();
+    }
+    public virtual void EndShoot()
+    {
+        audioS.Stop();
+        isShooting = false;
+    }
 }

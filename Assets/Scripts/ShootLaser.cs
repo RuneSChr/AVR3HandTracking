@@ -28,14 +28,12 @@ public class ShootLaser : iWeapon
     }
     public override void BeginShoot()
     {
-        if (isShooting)
-            return;
-        isShooting = true;
+        base.BeginShoot();
         line.SetStartAndEndPoints(Vector3.zero, Vector3.zero);
     }
     public override void EndShoot()
     {
-        isShooting = false;
+        base.EndShoot();
     }
 
     // Update is called once per frame
