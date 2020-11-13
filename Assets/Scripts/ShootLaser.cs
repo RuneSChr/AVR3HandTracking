@@ -15,6 +15,9 @@ public class ShootLaser : iWeapon
     private bool shouldReset = false;
     [SerializeField]
     private Transform handParent;
+    [SerializeField]
+    private CapsuleCollider col;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -78,5 +81,7 @@ public class ShootLaser : iWeapon
 
             }
         }
+        col.center = Vector3.Lerp(line.m_startPos, line.m_endPos, 0.5f);
+        col.height = Vector3.Distance(line.m_startPos, line.m_endPos);
     }
 }
