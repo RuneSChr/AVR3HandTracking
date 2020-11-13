@@ -15,7 +15,7 @@ public class ShootLaser : iWeapon
     [SerializeField]
     private Transform handParent;
     [SerializeField]
-    private CapsuleCollider col;
+    private BoxCollider col;
 
     // Start is called before the first frame update
     void Awake()
@@ -27,12 +27,17 @@ public class ShootLaser : iWeapon
     }
     public override void BeginShoot()
     {
-        base.BeginShoot();
+        if (isShooting)
+            return;
+        isShooting = true;
         line.SetStartAndEndPoints(Vector3.zero, Vector3.zero);
+        if (audioS.enabled && gameObject.activeInHierarchy)
+            audioS.Play();
     }
     public override void EndShoot()
     {
-        base.EndShoot();
+        isShooting = false;
+        audioS.Stop();
     }
 
     // Update is called once per frame
@@ -78,7 +83,10 @@ public class ShootLaser : iWeapon
 
             }
         }
-        col.center = Vector3.Lerp(line.m_startPos, line.m_endPos, 0.5f);
-        col.height = Vector3.Distance(line.m_startPos, line.m_endPos);
+        if (Vector3.Distance(line.m_startPos, line.m_endPos) < 100f)
+        {
+            col.center = Vector3.Lerp(line.m_startPos, line.m_endPos, 0.5f);
+            col.size = new Vector3(col.size.x, col.size.y, Vector3.Distance(line.m_startPos, line.m_endPos));
+        }
     }
 }

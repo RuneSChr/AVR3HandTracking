@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ResetPyramid : MonoBehaviour
 {
+    [SerializeField]
+    private AudioSource aSource;
     private List<ResetCube> cubeResets;
     // Start is called before the first frame update
     void Start()
@@ -17,6 +19,7 @@ public class ResetPyramid : MonoBehaviour
 
     public void ResetAllCubes()
     {
+        aSource.Play();
         foreach (ResetCube rs in cubeResets)
         {
             rs.Reset();

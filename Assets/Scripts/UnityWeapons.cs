@@ -11,20 +11,24 @@ public class UnityWeapons : iWeapon
 
     public override void BeginShoot()
     {
-        base.BeginShoot();
+        if (isShooting)
+            return;
+        isShooting = true;
         foreach(ParticleSystem ps in partSystems)
         {
             ps.Play();
         }
+        audioS.Play();
     }
 
     public override void EndShoot()
     {
-        base.EndShoot();
+        isShooting = false;
         foreach (ParticleSystem ps in partSystems)
         {
             ps.Stop(false, ParticleSystemStopBehavior.StopEmitting);
         }
+        audioS.Stop();
     }
     private void Update()
     {
