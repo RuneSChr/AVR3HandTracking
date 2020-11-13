@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class ResetPyramid : MonoBehaviour
 {
+    private List<ResetCube> cubeResets;
     // Start is called before the first frame update
     void Start()
     {
-        
+        cubeResets = new List<ResetCube>();
+        foreach (ResetCube rs in transform.GetComponentsInChildren<ResetCube>())
+        {
+            cubeResets.Add(rs);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ResetAllCubes()
     {
-        
+        foreach (ResetCube rs in cubeResets)
+        {
+            rs.Reset();
+        }
     }
 }

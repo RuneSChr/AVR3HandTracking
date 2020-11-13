@@ -30,10 +30,14 @@ public class ResetCube : MonoBehaviour
         {
             //running = true;
             rb.velocity = Vector3.zero;
-            print(rb.velocity);
             gameObject.transform.rotation = rot;
             gameObject.transform.position = position;
-            rb.velocity = Vector3.zero;
         }
+    }
+    public void Reset()
+    {
+        rb.velocity = Vector3.zero;
+        gameObject.transform.rotation = rot;
+        gameObject.transform.position = position;
     }
 }
