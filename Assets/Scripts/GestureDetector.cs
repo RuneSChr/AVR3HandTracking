@@ -41,7 +41,6 @@ public class GestureDetector : MonoBehaviour
         bool hasRecognized = !currentGes.Equals(new Gesture());
         if (hasRecognized && (!currentGes.Equals(previousGes) || savedGestures.Count < 2))
         {
-            Debug.Log("Gesture recognized: " + currentGes.name);
             previousGes = currentGes;
             currentGes.onRecognized.Invoke();
         }
